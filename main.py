@@ -7,7 +7,9 @@ global ConfigData
 @miraicle.Mirai.receiver('GroupMessage')
 def get_ins(bot: miraicle.Mirai, msg: miraicle.GroupMessage):
     if msg.plain=="帮助" or msg.plain=="？帮助":
-     bot.send_group_msg(msg.group, msg=[miraicle.Plain(('''Usage:
+     bot.send_group_msg(msg.group, msg=[miraicle.Plain(('''
+项目地址:https://github.com/kaixinol/FurryGarbanzoBot
+Usage:
 ？在线编译 <语言>
     <源代码>
 ？帮助
