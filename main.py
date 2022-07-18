@@ -2,7 +2,6 @@ import miraicle
 from handleins import handle_ins
 @miraicle.Mirai.receiver('GroupMessage')
 def get_ins(bot: miraicle.Mirai, msg: miraicle.GroupMessage):
-    bot.send_group_msg(msg.group, msg=[miraicle.Plain("未知指令")])
     if msg.plain[:1]=='？' and len(msg.plain.strip('？'))!=0:
         argv=msg.plain.splitlines()[0].split(' ',2)
         ins=msg.plain.split(' ',1)[0][1:]
