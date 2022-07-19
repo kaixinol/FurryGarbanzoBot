@@ -3,12 +3,12 @@ import os
 import json
 from handleins import handle_ins
 global ConfigData
+global load_dict
 
 @miraicle.Mirai.receiver('GroupMessage')
 def get_ins(bot: miraicle.Mirai, msg: miraicle.GroupMessage):
     if msg.plain=="帮助" or msg.plain=="？帮助":
-     bot.send_group_msg(msg.group, msg=[miraicle.Plain(('''
-项目地址:https://github.com/kaixinol/FurryGarbanzoBot
+     bot.send_group_msg(msg.group, msg=[miraicle.Plain(('''项目地址:https://github.com/kaixinol/FurryGarbanzoBot
 Usage:
 ？在线编译 <语言>
     <源代码>
@@ -22,7 +22,7 @@ Usage:
         del argv[0]
         if ins=="在线编译" :
          argv.append(msg.plain[msg.plain.find('\n')+1:])
-        handle_ins(ins,argv,bot,msg,ConfigData)
+        handle_ins(ins,argv,bot,msg,ConfigData,load_dict)
                                                  
 
 qq = 2634732881              # 你登录的机器人 QQ 号
@@ -30,8 +30,10 @@ verify_key = 'ServiceVerifyKey'     # 你在 setting.yml 中设置的 verifyKey
 port = 8080                 # 你在 setting.yml 中设置的 port (http)
 
 
-with open("config.json", encoding='utf-8') as file_obj:
+with open(r"config\config.json", encoding='utf-8') as file_obj:
  ConfigData = json.loads(file_obj.read())
+with open("config\group_setting.json", encoding='utf-8') as load_f:
+ load_dict = json.load(load_f)
 bot = miraicle.Mirai(qq=qq, verify_key=verify_key, port=port)
 bot.run()
 

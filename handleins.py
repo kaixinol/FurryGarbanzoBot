@@ -1,14 +1,13 @@
-#from configparser import  Plugins.
 import miraicle
 import random
 import os
-from plugins.onlinecompile import Compile 
 
-def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,config: dict):
-
- match ins:
+def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,config: dict,load_dict: dict):
+ if load_dict.get(str(msg.group))==None or load_dict[str(msg.group)]==1:
+  match ins:
         case "在线编译":
          try:
+          from plugins.onlinecompile import Compile
           raw_info=Compile(argv[1],argv[0],config)
           info=""
           for index in range(len(raw_info)):
@@ -20,15 +19,20 @@ def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,co
           info=str(e)
          finally:
           bot.send_group_msg(msg.group, msg=[miraicle.Plain(info)])
-         #print(Compile(argv[1],argv[0]))
         case "云黑":
          pass
         case "每日一题":
          url="https://www.luogu.com.cn/problem/P"+str(random.randint(1000,8308))
          bot.send_group_msg(msg.group, msg=[miraicle.Plain(url)])
-        case "停用bot":
-         if bot.is_administrator(msg.sender,msg.group)==True or config["plugin"]["Master"]==3607922630:
+        case "在此群停用bot":
+          pass#dict.setdefault(key,[]).append(value)
+        case "在此群启用bot":
+         if bot.is_administrator(msg.sender,msg.group)==True or config["plugin"]["Master"]==msg.sender:
           bot.send_group_msg(msg.group, msg=[miraicle.Plain("bot已经停止运作！")])
           os._exit(233)
+        case "冷更新":
+         if bot.is_administrator(msg.sender,msg.group)==True or config["plugin"]["Master"]==msg.sender:
+          bot.send_group_msg(msg.group, msg=[miraicle.Plain("bot已经停止运作！")])
+          os._exit(0)
         case _:
          bot.send_group_msg(msg.group, msg=[miraicle.Plain("未知指令："+ins)])
