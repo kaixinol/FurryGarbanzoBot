@@ -1,7 +1,7 @@
 import miraicle
 import random
 import os
-
+import json
 def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,config: dict,load_dict: dict):
  if load_dict.get(str(msg.group))==None or load_dict[str(msg.group)]==1:
   match ins:
@@ -24,15 +24,11 @@ def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,co
         case "每日一题":
          url="https://www.luogu.com.cn/problem/P"+str(random.randint(1000,8308))
          bot.send_group_msg(msg.group, msg=[miraicle.Plain(url)])
-        case "在此群停用bot":
-          pass#dict.setdefault(key,[]).append(value)
-        case "在此群启用bot":
-         if bot.is_administrator(msg.sender,msg.group)==True or config["plugin"]["Master"]==msg.sender:
-          bot.send_group_msg(msg.group, msg=[miraicle.Plain("bot已经停止运作！")])
-          os._exit(233)
         case "冷更新":
-         if bot.is_administrator(msg.sender,msg.group)==True or config["plugin"]["Master"]==msg.sender:
+         if config["Master"]==msg.sender:
           bot.send_group_msg(msg.group, msg=[miraicle.Plain("bot已经停止运作！")])
           os._exit(0)
         case _:
          bot.send_group_msg(msg.group, msg=[miraicle.Plain("未知指令："+ins)])
+ else:
+  bot.send_group_msg(msg.group, msg=[miraicle.Plain("主人已设置不响应")],quote=msg.id)

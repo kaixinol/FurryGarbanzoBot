@@ -32,8 +32,8 @@ port = 8080                 # 你在 setting.yml 中设置的 port (http)
 
 with open(r"config\config.json", encoding='utf-8') as file_obj:
  ConfigData = json.loads(file_obj.read())
-with open("config\group_setting.json", encoding='utf-8') as load_f:
- load_dict = json.load(load_f)
+with open(r"config\group_setting.json", encoding='utf-8') as file_o:
+ load_dict = json.loads(file_o.read())
 bot = miraicle.Mirai(qq=qq, verify_key=verify_key, port=port)
 bot.run()
 
