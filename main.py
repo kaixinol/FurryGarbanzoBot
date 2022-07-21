@@ -12,6 +12,7 @@ def get_ins(bot: miraicle.Mirai, msg: miraicle.GroupMessage):
 Usage:
 ？在线编译 <语言>
     <源代码>
+？查云黑 <QQ>
 ？帮助
 ？每日一题
 '''))])

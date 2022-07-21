@@ -19,8 +19,9 @@ def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,co
           info=str(e)
          finally:
           bot.send_group_msg(msg.group, msg=[miraicle.Plain(info)])
-        case "云黑":
-         pass
+        case "查云黑":
+         from plugins.blacklist import IsBlacklisted
+         bot.send_group_msg(msg.group, msg=[miraicle.Plain(IsBlacklisted(argv[0]))])
         case "每日一题":
          url="https://www.luogu.com.cn/problem/P"+str(random.randint(1000,8308))
          bot.send_group_msg(msg.group, msg=[miraicle.Plain(url)])
