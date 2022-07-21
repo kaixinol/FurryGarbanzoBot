@@ -15,6 +15,8 @@ Usage:
 ？查云黑 <QQ>
 ？帮助
 ？每日一题
+？警告 <At:QQ> <理由> （需要管理员权限）
+？查警告 <At:QQ>
 '''))])
      return
     if msg.plain[:1]=='？' and len(msg.plain.strip('？'))!=0:

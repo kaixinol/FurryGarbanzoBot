@@ -18,13 +18,22 @@ def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,co
          except Exception as e:
           info=str(e)
          finally:
-          bot.send_group_msg(msg.group, msg=[miraicle.Plain(info)])
+          bot.send_group_msg(msg.group, msg=[miraicle.MiraiCode(info)])
         case "查云黑":
          from plugins.blacklist import IsBlacklisted
          bot.send_group_msg(msg.group, msg=[miraicle.Plain(IsBlacklisted(argv[0]))])
         case "每日一题":
          url="https://www.luogu.com.cn/problem/P"+str(random.randint(1000,8308))
          bot.send_group_msg(msg.group, msg=[miraicle.Plain(url)])
+        case "警告":
+         from plugins.warn import WarnMember
+         if (bot.is_administrator(msg.sender,msg.group)==True or  config["Master"]==msg.sender) and len(msg.chain)==3:
+          WarnMember(str(msg.group),str(msg.chain[1].qq),str(msg.sender),msg.chain[2].text)
+         else:
+          bot.send_group_msg(msg.group, msg=[miraicle.Plain("你没有权限或语法错误。")])
+        case "查警告":
+         from plugins.warn import NumberOfWarnings
+         bot.send_group_msg(msg.group, msg=[miraicle.MiraiCode(NumberOfWarnings(str(msg.group),str(msg.chain[1].qq)))])
         case "冷更新":
          if config["Master"]==msg.sender:
           bot.send_group_msg(msg.group, msg=[miraicle.Plain("bot已经停止运作！")])

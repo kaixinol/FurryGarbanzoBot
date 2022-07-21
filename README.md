@@ -7,7 +7,7 @@ TODO:
 - [x] 云黑
 - [x] 每日一题
 - [ ] 设定分享
-- [ ] 群员警告
+- [x] 群员警告
 
 ## 快速开始
 配置mirai和http api
@@ -17,5 +17,6 @@ TODO:
 ```
 pip install miraicle
 pip install pydoodle
+pip install html2text
 python main.py
 ```
