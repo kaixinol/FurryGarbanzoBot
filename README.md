@@ -1,6 +1,6 @@
 # FurryGarbanzoBot
 模仿凯叽的私人bot而开发的furry bot
-
+优雅、结构化且易于增加新功能的私人Bot
 TODO:
 
 - [x] 在线编译

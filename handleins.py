@@ -8,6 +8,7 @@ def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,co
         case "在线编译":
          try:
           from plugins.onlinecompile import Compile
+          from plugins.banwords import BanWord
           raw_info=Compile(argv[1],argv[0],config)
           info=""
           for index in range(len(raw_info)):
@@ -18,7 +19,7 @@ def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,co
          except Exception as e:
           info=str(e)
          finally:
-          bot.send_group_msg(msg.group, msg=[miraicle.MiraiCode(info)])
+          bot.send_group_msg(msg.group, msg=[miraicle.MiraiCode(BanWord(info))])
         case "查云黑":
          from plugins.blacklist import IsBlacklisted
          bot.send_group_msg(msg.group, msg=[miraicle.Plain(IsBlacklisted(argv[0]))])
@@ -38,6 +39,15 @@ def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,co
          if config["Master"]==msg.sender:
           bot.send_group_msg(msg.group, msg=[miraicle.Plain("bot已经停止运作！")])
           os._exit(0)
+        case "LIST":
+         output=""
+         buffer=bot.group_list()
+         for i in range(0,len(buffer["data"])):
+          output+=buffer["data"][i]["name"]+"("+str(buffer["data"][i]["id"])+")"
+          output+='\t'
+          output+=buffer["data"][i]["permission"]
+          output+='\n'
+         bot.send_group_msg(msg.group, msg=[miraicle.Plain(output)])
         case _:
          bot.send_group_msg(msg.group, msg=[miraicle.Plain("未知指令："+ins)])
  else:
