@@ -5,6 +5,11 @@
         "OnlineCompile": {
             "id": "*",
             "secret": "*"
+        },
+		"E621": {
+            "username": "*",
+            "secret": "*",
+			"limit": 200
         }
     },
     "abuser": [

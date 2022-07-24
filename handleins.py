@@ -9,7 +9,7 @@ def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,co
          try:
           from plugins.onlinecompile import Compile
           from plugins.banwords import BanWord
-          raw_info=Compile(argv[1],argv[0],config)
+          raw_info=Compile(argv[1],argv[0],config["plugin"]["OnlineCompile"])
           info=""
           for index in range(len(raw_info)):
            info+=raw_info[index]
@@ -48,6 +48,22 @@ def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,co
           output+=buffer["data"][i]["permission"]
           output+='\n'
          bot.send_group_msg(msg.group, msg=[miraicle.Plain(output)])
+        case "随机兽人小说":
+         pass
+        case "来只兽":
+         from plugins.randomfurryimg import GetRandomFurryImg
+         if len(argv)==0:
+          dataSet=GetRandomFurryImg(config["plugin"]["E621"],"changed_(video_game)")
+          bot.send_group_msg(msg.group, msg=[miraicle.Image(
+                                                            url=dataSet["url"]),
+                                                            miraicle.Plain("sources:"+json.dumps(dataSet["sources"])+"\nid:"+str(dataSet["id"])
+                                                            )])
+         else:
+          dataSet=GetRandomFurryImg(config["plugin"]["E621"],'+'.join(argv))
+          bot.send_group_msg(msg.group, msg=[miraicle.Image(
+                                                            url=dataSet["url"]),
+                                                            miraicle.Plain("sources:"+json.dumps(dataSet["sources"])+"\nid:"+str(dataSet["id"]
+                                                            ))])
         case _:
          bot.send_group_msg(msg.group, msg=[miraicle.Plain("未知指令："+ins)])
  else:
