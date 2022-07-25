@@ -64,6 +64,13 @@ def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,co
                                                             url=dataSet["url"]),
                                                             miraicle.Plain("sources:"+json.dumps(dataSet["sources"])+"\nid:"+str(dataSet["id"]
                                                             ))])
+        case "来个meme":
+          from plugins.randomvideo import GetRanDomVideo
+          if len(argv)==0:
+           buffer=GetRanDomVideo(config["plugin"]["randomvideo"])
+          else:
+           buffer=GetRanDomVideo({"fav_id": argv[0]})
+          bot.send_group_msg(msg.group, msg=[miraicle.Plain(buffer)])
         case _:
          bot.send_group_msg(msg.group, msg=[miraicle.Plain("未知指令："+ins)])
  else:

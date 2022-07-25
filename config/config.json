@@ -11,6 +11,10 @@
             "secret": "*",
 			"limit": 200
         }
+		,
+		"randomvideo": {
+            "fav_id": "*"
+        }
     },
     "abuser": [
         

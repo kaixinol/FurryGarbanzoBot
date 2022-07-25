@@ -8,7 +8,7 @@ global load_dict
 @miraicle.Mirai.receiver('GroupMessage')
 def get_ins(bot: miraicle.Mirai, msg: miraicle.GroupMessage):
     if msg.plain=="帮助" or msg.plain=="？帮助":
-     bot.send_group_msg(msg.group, msg=[miraicle.Plain('项目文档地址:https://github.com/kaixinol/FurryGarbanzoBot/docs')])
+     bot.send_group_msg(msg.group, msg=[miraicle.Plain('项目文档地址:https://github.com/kaixinol/FurryGarbanzoBot/tree/main/docs')])
      return
     if msg.plain[:1]=='？' and len(msg.plain.strip('？'))!=0:
         argv=msg.plain.splitlines()[0].split(' ',2)
