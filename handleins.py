@@ -48,8 +48,6 @@ def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,co
           output+=buffer["data"][i]["permission"]
           output+='\n'
          bot.send_group_msg(msg.group, msg=[miraicle.Plain(output)])
-        case "随机兽人小说":
-         pass
         case "来只兽":
          from plugins.randomfurryimg import GetRandomFurryImg
          if len(argv)==0:
@@ -71,6 +69,17 @@ def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,co
           else:
            buffer=GetRanDomVideo({"fav_id": argv[0]})
           bot.send_group_msg(msg.group, msg=[miraicle.Plain(buffer)])
+        case "设定上传":
+         pass
+        case "设定":
+          #from plugins.fursonahandle import RetSomebodyFursonaProfile
+          #print(RetSomebodyFursonaProfile(argv[0])["img"])
+          #bot.send_group_msg(msg.group, msg=[miraicle.Image(url=RetSomebodyFursonaProfile(argv[0])["img"])])
+          pass
+        case "我的全部崽子":
+          #from plugins.fursonahandle import RetMyAllFursonaProfile
+          #bot.send_group_msg(msg.group, msg=[miraicle.Plain(RetMyAllFursonaProfile(msg.sender))])
+          pass
         case _:
          bot.send_group_msg(msg.group, msg=[miraicle.Plain("未知指令："+ins)])
  else:
