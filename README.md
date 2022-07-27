@@ -1,4 +1,5 @@
 # FurryGarbanzoBot
+
 本bot仅支持`Python3.10.5`及以上版本。
 
 模仿凯叽的私人bot而开发的furry bot
@@ -30,3 +31,4 @@ pip install tinify
  
 python main.py
 ```
+[![Star History Chart](https://api.star-history.com/svg?repos=kaixinol/FurryGarbanzoBot&type=Date)](https://star-history.com/#kaixinol/FurryGarbanzoBot&Date)
