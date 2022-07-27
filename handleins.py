@@ -2,6 +2,8 @@ import miraicle
 import random
 import os
 import json
+import emoji
+import base64
 def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,config: dict,load_dict: dict):
  if load_dict.get(str(msg.group))==None or load_dict[str(msg.group)]==1:
   match ins:
@@ -70,16 +72,33 @@ def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,co
            buffer=GetRanDomVideo({"fav_id": argv[0]})
           bot.send_group_msg(msg.group, msg=[miraicle.Plain(buffer)])
         case "设定上传":
-         pass
+          # TODO:鉴权
+          from plugins.fursonahandle import AddFursona
+          from plugins.fursonahandle import SaveImg
+          if len(msg.chain)==3 and AddFursona(argv[0],
+                                                     msg.sender,argv[1],
+                                                     SaveImg(msg.chain[1].url,argv[0],msg.chain[1].image_id))!=True:
+             bot.send_group_msg(msg.group, msg=[miraicle.Plain("发生错误")])
+          if len(msg.chain)==1 and AddFursona(argv[0],msg.sender,argv[1],None)!=True:
+             bot.send_group_msg(msg.group, msg=[miraicle.Plain("发生错误")])
+          if len(msg.chain)==2 and AddFursona(argv[0],msg.sender,None,SaveImg(msg.chain[1].url,argv[0],msg.chain[1].image_id))!=True:
+            bot.send_group_msg(msg.group, msg=[miraicle.Plain("发生错误")])
         case "设定":
-          #from plugins.fursonahandle import RetSomebodyFursonaProfile
-          #print(RetSomebodyFursonaProfile(argv[0])["img"])
-          #bot.send_group_msg(msg.group, msg=[miraicle.Image(url=RetSomebodyFursonaProfile(argv[0])["img"])])
-          pass
-        case "我的全部崽子":
-          #from plugins.fursonahandle import RetMyAllFursonaProfile
-          #bot.send_group_msg(msg.group, msg=[miraicle.Plain(RetMyAllFursonaProfile(msg.sender))])
-          pass
+          from plugins.fursonahandle import RetSomebodyFursonaProfile
+          data=RetSomebodyFursonaProfile(argv[0])
+          if data==None:
+            bot.send_group_msg(msg.group, msg=[miraicle.Plain("没有叫%s的兽兽！"%argv[0])])
+            return
+          basedName=base64.b64encode(argv[0].encode()).decode()
+          master=miraicle.Plain(emoji.emojize("\n[主人::paw_prints:%s:paw_prints:]"%data["Owner"]))
+          cub=miraicle.Plain(emoji.emojize(":star:%s:star:\n"%argv[0]))
+          if data["Img"]==None:
+           output=[cub,miraicle.Plain(data["Desc"]),master]
+          elif data["Desc"]==None:
+           output=[cub,miraicle.Image.from_url(r"file:\\\%s\\plugins\database\\%s"%(os.getcwd(),data["Img"])),master]
+          else:
+           output=[cub,miraicle.Plain(data["Desc"]),miraicle.Image.from_url(r"file:\\\%s\\plugins\database\\%s"%(os.getcwd(),data["Img"])),master]
+          bot.send_group_msg(msg.group, msg=output)
         case _:
          bot.send_group_msg(msg.group, msg=[miraicle.Plain("未知指令："+ins)])
  else:

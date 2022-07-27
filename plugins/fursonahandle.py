@@ -1,31 +1,28 @@
+import json
 import base64
-from pysondb import db
-import os
-import requests
-
-def AddFursona(img: list,desc: str,owner: int,fursonaName: str):
-
-def DelFursona(fursonaName: str,owner: int):
-
-def RetMyAllFursonaProfile(sender: int):
-  buffer=""
-  for i in range(0,len(data)):
-   buffer+=":star:"+data[i]+":star:"+"\n"
-  return "你已有"+str(len(data))+'个崽子！\n'+buffer
-
+import urllib.request 
+def AddFursona(fursonaName: str,sender: int,desc: str,img):
+ return CreateJson(fursonaName,{"Owner": sender,"Desc": desc,"Img": img})
 def RetSomebodyFursonaProfile(fursonaName: str):
-
- return {"IsErr": False,"Desc": data["Desc"],"Img": data["Img"],"Owner": data["Owner"]}
-
-AddFursona(["xxccv","gg","fgh"],"师",233,"落雾")
-print(RetSomebodyFursonaProfile("落雾"))
-AddFursona(["xxccv","dfgg","fgfgh"],"测小师",233,"落雾2")
-AddFursona(["xxccv","dfgg","dsfdfg"],"师",233,"落雾3")
-print(RetMyAllFursonaProfile(233))
-
-DelFursona("落雾",233)
-def DownloadImg(url: str,save: str):
- response = requests.get(URL)
- open(save, "wb").write(response.content)
-
-def WriteJson(name: str,)
+ return ReadJson(fursonaName)
+def ReadJson(n: str):
+ try:
+  with open(r".\plugins\database\%s.json" % base64.b64encode(n.encode()).decode(),'r') as load_f:
+   load_dict = json.load(load_f)
+  return load_dict
+ except:
+  return None
+def CreateJson(n: str,data: dict):
+ try:
+  with open(r'.\plugins\database\%s.json' % base64.b64encode(n.encode()).decode(), 'w') as f:
+   json.dump(data, f)
+  return True
+ except:
+  return False
+def SaveImg(url: str,n: str,id: str):
+ try:
+   suffix=id[id.rfind("."):]
+   urllib.request.urlretrieve(url, r'.\plugins\database\%s%s' %(base64.b64encode(n.encode()).decode(),suffix))
+   return (base64.b64encode(n.encode()).decode()+suffix)
+ except:
+   return None
