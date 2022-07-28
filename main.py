@@ -17,7 +17,7 @@ def get_ins(bot: miraicle.Mirai, msg: miraicle.GroupMessage):
         argv=msg.plain.splitlines()[0].split(' ',2)
         ins=msg.plain.split(' ',1)[0][1:]
         del argv[0]
-        if ins=="在线编译" or "设定上传":
+        if ins=="在线编译" or ins=="设定上传":
          argv.append(msg.plain[msg.plain.find('\n')+1:])
         handle_ins(ins,argv,bot,msg,ConfigData,load_dict)
                                                  
