@@ -72,9 +72,10 @@ def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,co
            buffer=GetRanDomVideo({"fav_id": argv[0]})
           bot.send_group_msg(msg.group, msg=[miraicle.Plain(buffer)])
         case "设定上传":
-          # TODO:鉴权
           from plugins.fursonahandle import AddFursona
           from plugins.fursonahandle import SaveImg
+          from plugins.fursonahandle import RetSomebodyFursonaProfile
+          if
           if len(msg.chain)==3 and AddFursona(argv[0],
                                                      msg.sender,argv[1],
                                                      SaveImg(msg.chain[1].url,argv[0],msg.chain[1].image_id))!=True:
@@ -95,9 +96,9 @@ def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,co
           if data["Img"]==None:
            output=[cub,miraicle.Plain(data["Desc"]),master]
           elif data["Desc"]==None:
-           output=[cub,miraicle.Image.from_url(r"file:\\\%s\\plugins\database\\%s"%(os.getcwd(),data["Img"])),master]
+           output=[cub,miraicle.Image.from_url(r"file:///%s/plugins/database/%s"%(os.getcwd(),data["Img"])),master]
           else:
-           output=[cub,miraicle.Plain(data["Desc"]),miraicle.Image.from_url(r"file:\\\%s\\plugins\database\\%s"%(os.getcwd(),data["Img"])),master]
+           output=[cub,miraicle.Plain(data["Desc"]),miraicle.Image.from_url(r"file:///%s/plugins/database/%s"%(os.getcwd(),data["Img"])),master]
           bot.send_group_msg(msg.group, msg=output)
         case _:
          bot.send_group_msg(msg.group, msg=[miraicle.Plain("未知指令："+ins)])
