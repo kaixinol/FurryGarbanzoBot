@@ -4,7 +4,7 @@
 
 模仿凯叽的私人bot而开发的furry bot
 
-优雅、结构化且易于增加新功能。
+优雅、结构化且易于增加新功能
 
 TODO:
 
@@ -16,19 +16,13 @@ TODO:
 - [x] 关键词屏蔽
 - [x] Furry图片
 - [x] 随机meme动画 
-- [x] 固定时间广播
 ## 快速开始
 配置mirai和http api
 
 配置`config.json`
 
 ```
-pip install miraicle
-pip install pydoodle
-pip install html2text
-pip install emoji
-pip install tinify
- 
+pip install -r requirements.txt
 python main.py
 ```
 [![Star History Chart](https://api.star-history.com/svg?repos=kaixinol/FurryGarbanzoBot&type=Date)](https://star-history.com/#kaixinol/FurryGarbanzoBot&Date)

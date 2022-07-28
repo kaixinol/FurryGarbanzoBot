@@ -75,15 +75,17 @@ def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,co
           from plugins.fursonahandle import AddFursona
           from plugins.fursonahandle import SaveImg
           from plugins.fursonahandle import RetSomebodyFursonaProfile
-          if
-          if len(msg.chain)==3 and AddFursona(argv[0],
+          if RetSomebodyFursonaProfile==None or RetSomebodyFursonaProfile["Owner"]==msg.sender:
+           if len(msg.chain)==3 and AddFursona(argv[0],
                                                      msg.sender,argv[1],
                                                      SaveImg(msg.chain[1].url,argv[0],msg.chain[1].image_id))!=True:
              bot.send_group_msg(msg.group, msg=[miraicle.Plain("发生错误")])
-          if len(msg.chain)==1 and AddFursona(argv[0],msg.sender,argv[1],None)!=True:
+           if len(msg.chain)==1 and AddFursona(argv[0],msg.sender,argv[1],None)!=True:
              bot.send_group_msg(msg.group, msg=[miraicle.Plain("发生错误")])
-          if len(msg.chain)==2 and AddFursona(argv[0],msg.sender,None,SaveImg(msg.chain[1].url,argv[0],msg.chain[1].image_id))!=True:
+           if len(msg.chain)==2 and AddFursona(argv[0],msg.sender,None,SaveImg(msg.chain[1].url,argv[0],msg.chain[1].image_id))!=True:
             bot.send_group_msg(msg.group, msg=[miraicle.Plain("发生错误")])
+          else:
+           bot.send_group_msg(msg.group, msg=[miraicle.Plain("你没有权限。")])
         case "设定":
           from plugins.fursonahandle import RetSomebodyFursonaProfile
           data=RetSomebodyFursonaProfile(argv[0])

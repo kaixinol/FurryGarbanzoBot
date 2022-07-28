@@ -1,0 +1,5 @@
+emoji==2.0.0
+html2text==2020.1.16
+miraicle==0.3.10
+pydoodle==1.1.3
+requests==2.25.1
