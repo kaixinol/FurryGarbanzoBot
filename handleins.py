@@ -75,7 +75,7 @@ def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,co
           from plugins.fursonahandle import AddFursona
           from plugins.fursonahandle import SaveImg
           from plugins.fursonahandle import RetSomebodyFursonaProfile
-          if RetSomebodyFursonaProfile==None or RetSomebodyFursonaProfile["Owner"]==msg.sender:
+          if RetSomebodyFursonaProfile(argv[0])==None or RetSomebodyFursonaProfile(argv[0])["Owner"]==msg.sender:
            if len(msg.chain)==3 and AddFursona(argv[0],
                                                      msg.sender,argv[1],
                                                      SaveImg(msg.chain[1].url,argv[0],msg.chain[1].image_id))!=True:
