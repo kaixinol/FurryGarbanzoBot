@@ -87,13 +87,13 @@ def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,co
           else:
            bot.send_group_msg(msg.group, msg=[miraicle.Plain("你没有权限。")])
         case "设定":
+          from plugins.fursonahandle import RetSomebodyFursonaProfile
           if len(argv)==0:
-           import plugins.fursonahandle
            root = r"./plugins/database/"
            files_list = os.listdir(root)
            filter_files_list = [fn for fn in files_list if fn.endswith("json")]
            files_list = [os.path.join(root,fn) for fn in files_list]
-           argv.append(base64.b64dencode(os.path.basename(files_list[random.randint(0,len(files_list)-1)]).split('.')[0]).decode())
+           argv.append(base64.b64decode(os.path.basename(files_list[random.randint(0,len(files_list)-1)]).split('.')[0]).decode())
            print(argv[0])
           data=RetSomebodyFursonaProfile(argv[0])
           if data==None:
