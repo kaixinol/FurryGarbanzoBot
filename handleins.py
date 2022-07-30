@@ -93,7 +93,7 @@ def handle_ins(ins: str,argv: list, bot: miraicle, msg: miraicle.GroupMessage,co
            files_list = os.listdir(root)
            filter_files_list = [fn for fn in files_list if fn.endswith("json")]
            files_list = [os.path.join(root,fn) for fn in files_list]
-           argv.append(base64.b64dencode(os.path.basename(root).split('.')[0]).decode())
+           argv.append(base64.b64dencode(os.path.basename(files_list[random.randint(0,len(files_list)-1)]).split('.')[0]).decode())
            print(argv[0])
           data=RetSomebodyFursonaProfile(argv[0])
           if data==None:
