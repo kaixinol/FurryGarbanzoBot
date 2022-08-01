@@ -1,27 +1,27 @@
 from collections import defaultdict
 import re
 
-__all__ = ['NaiveFilter', 'BSFilter', 'DFAFilter']
-__author__ = 'observer'
-__update__ = 'obaby@mars https://www.h4ck.org.cn'
-__update_date__ = '2019.11.27'
+__all__ = ["NaiveFilter", "BSFilter", "DFAFilter"]
+__author__ = "observer"
+__update__ = "obaby@mars https://www.h4ck.org.cn"
+__update_date__ = "2019.11.27"
 
 
-class NaiveFilter():
-    '''Filter Messages from keywords
+class NaiveFilter:
+    """Filter Messages from keywords
     very simple filter implementation
     >>> f = NaiveFilter()
     >>> f.add("sexy")
     >>> f.filter("hello sexy baby")
     hello **** baby
-    '''
+    """
 
     def __init__(self):
         self.keywords = set([])
 
     def parse(self, path):
         for keyword in open(path):
-            self.keywords.add(keyword.strip().decode('utf-8').lower())
+            self.keywords.add(keyword.strip().decode("utf-8").lower())
 
     def filter(self, message, repl="*"):
         message = message.lower()
@@ -31,23 +31,23 @@ class NaiveFilter():
 
 
 class BSFilter:
-    '''Filter Messages from keywords
+    """Filter Messages from keywords
     Use Back Sorted Mapping to reduce replacement times
     >>> f = BSFilter()
     >>> f.add("sexy")
     >>> f.filter("hello sexy baby")
     hello **** baby
-    '''
+    """
 
     def __init__(self):
         self.keywords = []
         self.kwsets = set([])
         self.bsdict = defaultdict(set)
-        self.pat_en = re.compile(r'^[0-9a-zA-Z]+$')  # english phrase or not
+        self.pat_en = re.compile(r"^[0-9a-zA-Z]+$")  # english phrase or not
 
     def add(self, keyword):
         if not isinstance(keyword, str):
-            keyword = keyword.decode('utf-8')
+            keyword = keyword.decode("utf-8")
         keyword = keyword.lower()
         if keyword not in self.kwsets:
             self.keywords.append(keyword)
@@ -67,7 +67,7 @@ class BSFilter:
 
     def filter(self, message, repl="*"):
         if not isinstance(message, str):
-            message = message.decode('utf-8')
+            message = message.decode("utf-8")
         message = message.lower()
         for word in message.split():
             if self.pat_en.search(word):
@@ -80,22 +80,22 @@ class BSFilter:
         return message
 
 
-class DFAFilter():
-    '''Filter Messages from keywords
+class DFAFilter:
+    """Filter Messages from keywords
     Use DFA to keep algorithm perform constantly
     >>> f = DFAFilter()
     >>> f.add("sexy")
     >>> f.filter("hello sexy baby")
     hello **** baby
-    '''
+    """
 
     def __init__(self):
         self.keyword_chains = {}
-        self.delimit = '\x00'
+        self.delimit = "\x00"
 
     def add(self, keyword):
         if not isinstance(keyword, str):
-            keyword = keyword.decode('utf-8')
+            keyword = keyword.decode("utf-8")
         keyword = keyword.lower()
         chars = keyword.strip()
         if not chars:
@@ -117,13 +117,13 @@ class DFAFilter():
             level[self.delimit] = 0
 
     def parse(self, path):
-        with open(path, encoding='UTF-8') as f:
+        with open(path, encoding="UTF-8") as f:
             for keyword in f:
                 self.add(keyword.strip())
 
     def filter(self, message, repl="*"):
         if not isinstance(message, str):
-            message = message.decode('utf-8')
+            message = message.decode("utf-8")
         message = message.lower()
         ret = []
         start = 0
@@ -146,14 +146,16 @@ class DFAFilter():
                 ret.append(message[start])
             start += 1
 
-        return ''.join(ret)
+        return "".join(ret)
 
     def is_contain_sensi_key_word(self, message):
-        repl = '_-__-'
+        repl = "_-__-"
         dest_string = self.filter(message=message, repl=repl)
         if repl in dest_string:
             return True
         return False
+
+
 def BanWord(string: str):
     gfw = DFAFilter()
     gfw.parse("./config/banwords.txt")
