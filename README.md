@@ -1,4 +1,7 @@
-# FurryGarbanzoBot
+# ⚠️项目已归档，不再维护。
+# 请关注 [AldotaiBot](https://github.com/kaixinol/AldotaiBot)
+----
+## FurryGarbanzoBot
 
 本bot仅支持`Python3.10.5`及以上版本。
 
